@@ -44,7 +44,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         SharedPreferences prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
         userId = prefs.getString("user_id", "");
         versionId = prefs.getString("version_id", "");
-        requestUrl = prefs.getString("request_url", "") || 'http://flashtaxi.applurk.com/api/polling/driver';
+        requestUrl = prefs.getString("request_url", "") || "http://flashtaxi.applurk.com/api/polling/driver";
 //        http://flashtaxi.applurk.com/api/polling/driver?lo=2015-09-18+09:38:50&timeout=3000&try=1&ts=1442584773609&ty=d&ui=12&uid=default&v=1.1.0
 
         Log.i(TAG, "userId:" + userId);
