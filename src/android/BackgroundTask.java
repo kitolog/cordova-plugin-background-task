@@ -92,7 +92,7 @@ public class BackgroundTask extends CordovaPlugin {
                                 String task = prefs.getString("tk:" + taskName, null);
 
                                 if (task != null) {
-                                    prefs.edit().remove("tk:" + taskName)
+                                    prefs.edit().remove("tk:" + taskName);
                                     Log.v(TAG, "BackgroundTask removeTask SUCCESS");
                                 }else{
                                     Log.v(TAG, "BackgroundTask removeTask NO TASK");
