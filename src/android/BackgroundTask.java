@@ -146,7 +146,7 @@ public class BackgroundTask extends CordovaPlugin {
                 }else if (ACTION_ENABLED_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ENABLED_TASK");
 
-                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
+                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
                     if (prefs != null) {
 
                         prefs.edit().putInt("enabled", enabled).commit();
