@@ -42,62 +42,17 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    public void SetAlarm(Context context, int intervalIndex) {
+    public void SetAlarm(Context context, int seconds) {
         Log.d(TAG, "SetAlarm");
-        int minutes = 1;
-        switch (intervalIndex) {
-            case 0:
-                minutes = minutes * 10;
-                break;
 
-            case 1:
-                minutes = minutes * 30;
-                break;
-
-            case 2:
-                minutes = minutes * 60;
-                break;
-
-            case 3:
-                minutes = minutes * 60 * 2;
-                break;
-
-            case 4:
-                minutes = minutes * 60 * 3;
-                break;
-
-            case 5:
-                minutes = minutes * 60 * 5;
-                break;
-
-            case 6:
-                minutes = minutes * 60 * 7;
-                break;
-
-            case 7:
-                minutes = minutes * 60 * 10;
-                break;
-
-            case 8:
-                minutes = minutes * 60 * 15;
-                break;
-
-            case 9:
-                minutes = minutes * 60 * 24;
-                break;
-
-            case 10:
-                minutes = minutes * 60 * 24 * 3;
-                break;
-            default:
-                minutes = minutes * 30;
-                break;
+        if (seconds < 300) {
+            seconds = 300;
         }
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * minutes, pendingIntent); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), seconds, pendingIntent); // Millisec * Second * Minute
     }
 
     public void CancelAlarm(Context context) {

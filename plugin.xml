@@ -48,5 +48,11 @@
         <source-file src="src/android/AppService.java" target-dir="src/com/applurk/plugin"/>
         <source-file src="src/android/AutoStart.java" target-dir="src/com/applurk/plugin"/>
         <source-file src="src/android/ReloadService.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/PollingTask.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/ConnectionClient.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/NotificationUtils.java" target-dir="src/com/applurk/plugin"/>
+
+        <source-file src="android-async-http-1.4.8.jar" target-dir="libs" />
+        <source-file src="gson-2.3.1.jar" target-dir="libs" />
     </platform>
 </plugin>
