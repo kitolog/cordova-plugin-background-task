@@ -45,7 +45,11 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         SharedPreferences prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
         userId = prefs.getString("user_id", "12");
         versionId = prefs.getString("version_id", "1.1.1");
-        requestUrl = prefs.getString("request_url", "") || "http://flashtaxi.applurk.com/api/polling/driver";
+        requestUrl = prefs.getString("request_url", "");
+
+        if ((requestUrl == null) || requestUrl.isEmpty()) {
+            requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";
+        }
 //        http://flashtaxi.applurk.com/api/polling/driver?lo=2015-09-18+09:38:50&timeout=3000&try=1&ts=1442584773609&ty=d&ui=12&uid=default&v=1.1.0
 
         Log.i(TAG, "userId:" + userId);
@@ -114,13 +118,13 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                         //                                            co: [{id: 1435, status: "search",addressFrom: "улица Кедышко, 14Б"}]
                                         for (int i = 0; i < currentOrders.length(); i++) {
 
-                                            JSONObject orderData = productIds.getJSONObject(i);
+                                            JSONObject orderData = currentOrders.getJSONObject(i);
 
-                                            if(orderData != null){
+                                            if (orderData != null) {
                                                 String addressFrom = orderData.getString("addressFrom");
                                                 String status = orderData.getString("status");
 
-                                                if((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty()){
+                                                if ((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty()) {
                                                     Log.i(TAG, "FOUND NEW ORDER!!!!!");
                                                     Log.i(TAG, addressFrom);
                                                     Log.i(TAG, status);
@@ -163,13 +167,15 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
             return !ipAddr.equals("");
 
         } catch (Exception e) {
-                Log.e(TAG, "isInternetAvailable Exception " + e.getMessage());
+            Log.e(TAG, "isInternetAvailable Exception " + e.getMessage());
             return false;
         }
 
     }
 
-    protected void onProgressUpdate(Integer... progress) {}
+    protected void onProgressUpdate(Integer... progress) {
+    }
 
-    protected void onPostExecute(Boolean result) {}
+    protected void onPostExecute(Boolean result) {
+    }
 }
