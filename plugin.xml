@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.applurk.cordova-background-task"
+        version="0.1">
+    <name>Cordova BackgroundTask</name>
+    <description>The plugin helps you to run js in background task</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,device,background,task,js,android</keywords>
+    <repo>https://github.com/kitolog/cordova-plugin-background-task</repo>
+    <issue></issue>
+
+    <js-module src="www/BackgroundTask.js" name="BackgroundTask">
+        <clobbers target="window.backgroundTask"/>
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BackgroundTask">
+                <param name="android-package" value="com.applurk.plugin.BackgroundTask"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+
+            <service android:name="com.applurk.plugin.ReloadService"></service>
+            <service
+                android:name=".WidgetService"
+                android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+            <receiver android:process=":remote" android:name="com.applurk.plugin.AlarmBroadcastReceiver" />
+            <receiver android:name="com.applurk.plugin.AutoStart">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                </intent-filter>
+            </receiver>
+
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+        </config-file>
+
+        <source-file src="src/android/BackgroundTask.java" target-dir="src/com/applurk/plugin"/>
+    </platform>
+</plugin>

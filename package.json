@@ -1,0 +1,22 @@
+{
+    "version": "0.1",
+    "name": "com.applurk.cordova-screen-locker",
+    "cordova_name": "BackgroundTask",
+    "description": "The plugin helps you to run js in background task",
+    "license": "Apache 2.0",
+    "repo": "",
+    "issue": "",
+    "keywords": [
+        "cordova",
+        "device",
+        "background",
+        "task",
+        "js",
+        "android",
+    ],
+    "platforms": [
+        "android",
+    ],
+    "engines": [],
+    "englishdoc": ""
+}
