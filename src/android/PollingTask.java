@@ -2,6 +2,7 @@ package com.applurk.plugin;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -47,11 +48,12 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
     protected void setupTask() {
         Log.i(TAG, "setupTask");
-        prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
+//        prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
+        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
         versionId = prefs.getString("version_id", "");
         requestUrl = prefs.getString("request_url", "");
-        enabled = prefs.getInt("enabled", 1);
+        enabled = prefs.getInt("enabled", 0);
         uid = prefs.getString("uid", "8fh04fir7ir");
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {

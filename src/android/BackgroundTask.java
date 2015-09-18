@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class BackgroundTask extends CordovaPlugin {
     private final static String TAG = "AL:BackgroundTask";
@@ -87,7 +88,8 @@ public class BackgroundTask extends CordovaPlugin {
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
-                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
+                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
+//                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
                         prefs.edit().putString("user_id", user).commit();
                         prefs.edit().putString("request_url", url).commit();
