@@ -27,8 +27,8 @@ import android.content.SharedPreferences;
 public class BackgroundTask extends CordovaPlugin {
     private final static String TAG = "AL:BackgroundTask";
 
-    public static final String ACTION_ADD_TASK = "addTask";
-    public static final String ACTION_REMOVE_TASK = "removeTask";
+    public static final String ACTION_ADD_TASK = "add";
+    public static final String ACTION_REMOVE_TASK = "remove";
 
     /**
      * Constructor.
@@ -64,42 +64,47 @@ public class BackgroundTask extends CordovaPlugin {
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
-                    cordova.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
-                            if (prefs != null) {
-                                prefs.edit().putString("tk:" + taskName, callback).commit();
-                                String task = prefs.putString("tk:" + taskName, false);
-                                Log.v(TAG, "BackgroundTask addTask SUCCESS");
-                                callbackContext.success();
-                            } else {
-                                Log.v(TAG, "BackgroundTask SharedPreferences NULL");
-                            }
-                        }
-                    });
+                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
+                    if (prefs != null) {
+                        prefs.edit().putString("tk:" + taskName, callback).commit();
+                        Log.v(TAG, "BackgroundTask addTask SUCCESS");
+                        callbackContext.success();
+                        /*
+                        cordova.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
+                            }
+                        });
+                        */
+                    } else {
+                        Log.v(TAG, "BackgroundTask SharedPreferences NULL");
+                    }
                     result = true;
                 } else if (ACTION_REMOVE_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_REMOVE_TASK");
-                    cordova.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
-                            if (prefs != null) {
-                                String task = prefs.getString("tk:" + taskName, null);
 
-                                if (task != null) {
-                                    prefs.edit().remove("tk:" + taskName);
-                                    Log.v(TAG, "BackgroundTask removeTask SUCCESS");
-                                }else{
-                                    Log.v(TAG, "BackgroundTask removeTask NO TASK");
-                                }
-                            } else {
-                                Log.v(TAG, "BackgroundTask SharedPreferences NULL");
-                            }
+                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
+                    if (prefs != null) {
+                        String task = prefs.getString("tk:" + taskName, null);
+
+                        if (task != null) {
+                            prefs.edit().remove("tk:" + taskName);
+                            Log.v(TAG, "BackgroundTask removeTask SUCCESS");
+                        }else{
+                            Log.v(TAG, "BackgroundTask removeTask NO TASK");
                         }
-                    });
+                        /*
+                        cordova.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+                        */
+                    } else {
+                        Log.v(TAG, "BackgroundTask SharedPreferences NULL");
+                    }
 
                     result = true;
                 } else {

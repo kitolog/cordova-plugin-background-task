@@ -3,6 +3,16 @@ var exec = require('cordova/exec');
 var backgroundTask = {
     addTask: function(taskName, taskCallback, successCallback, errorCallback, frequency) {
 
+        if(typeof taskName != 'string'){
+            console.error('taskName is required');
+            return;
+        }
+
+        if(typeof taskCallback != 'function'){
+            console.error('taskCallback is required and must be a function');
+            return;
+        }
+
         if(typeof frequency == 'undefined'){
             frequency = 0;
         }
@@ -27,7 +37,7 @@ var backgroundTask = {
             successCallback, // success callback function
             errorCallback, // error callback function
             'BackgroundTask', // mapped to our native Java class called "BackgroundTask"
-            'addTask', // with this action name
+            'add', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "frequency": frequency,
                 "taskName": taskName,
@@ -61,7 +71,7 @@ var backgroundTask = {
             successCallback, // success callback function
             errorCallback, // error callback function
             'BackgroundTask', // mapped to our native Java class called "BackgroundTask"
-            'removeTask', // with this action name
+            'remove', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "taskName": taskName
             }]
