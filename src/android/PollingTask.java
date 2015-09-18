@@ -49,6 +49,14 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     protected void setupTask() {
         Log.i(TAG, "setupTask");
 //        prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
+
+    }
+
+    protected Boolean doInBackground(Integer... params) {
+        boolean result = false;
+
+        Log.i(TAG, "doInBackground");
+
         prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
         versionId = prefs.getString("version_id", "");
@@ -63,12 +71,6 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         Log.i(TAG, "userId:" + userId);
         Log.i(TAG, "versionId:" + versionId);
         Log.i(TAG, "enabled:" + String.valueOf(enabled));
-    }
-
-    protected Boolean doInBackground(Integer... params) {
-        boolean result = false;
-
-        Log.i(TAG, "doInBackground");
 
         if (!isNetworkConnected()) {
             Log.e(TAG, "NOT isNetworkConnected");
