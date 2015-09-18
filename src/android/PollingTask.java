@@ -72,10 +72,10 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
             requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";
         }
 
-        Log.i(TAG, "userId:" + userId);
-        Log.i(TAG, "versionId:" + versionId);
-        Log.i(TAG, "enabled:" + String.valueOf(enabled));
-        Log.i(TAG, "uid:" + uid);
+//        Log.i(TAG, "userId:" + userId);
+//        Log.i(TAG, "versionId:" + versionId);
+//        Log.i(TAG, "enabled:" + String.valueOf(enabled));
+//        Log.i(TAG, "uid:" + uid);
 
         if (!isNetworkConnected()) {
             Log.e(TAG, "NOT isNetworkConnected");

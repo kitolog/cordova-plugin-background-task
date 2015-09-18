@@ -24,10 +24,10 @@ public class AppService {
             int enabled = prefs.getInt("enabled", 0);
             String uid = prefs.getString("uid", "8fh04fir7ir");
 
-            Log.i(TAG, "userId:" + userId);
-            Log.i(TAG, "versionId:" + versionId);
-            Log.i(TAG, "enabled:" + String.valueOf(enabled));
-            Log.i(TAG, "-------------");
+//            Log.i(TAG, "userId:" + userId);
+//            Log.i(TAG, "versionId:" + versionId);
+//            Log.i(TAG, "enabled:" + String.valueOf(enabled));
+//            Log.i(TAG, "-------------");
 
 //            PollingTask pollingTask = new PollingTask(context, requestUrl, userId, versionId, uid, enabled);
             PollingTask pollingTask = new PollingTask(context);
