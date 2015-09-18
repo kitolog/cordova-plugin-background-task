@@ -94,10 +94,10 @@ public class BackgroundTask extends CordovaPlugin {
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
 //                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
-                        prefs.edit().putString("user_id", user);
-                        prefs.edit().putString("request_url", url);
-                        prefs.edit().putString("version_id", version);
-                        prefs.edit().putInt("enabled", 1).commit();
+                        prefs.edit().putString("user_id", user).apply();
+                        prefs.edit().putString("request_url", url).apply();
+                        prefs.edit().putString("version_id", version).apply();
+                        prefs.edit().putInt("enabled", 1).apply();
                         Log.v(TAG, "user_id");
                         Log.v(TAG, user);
                         Log.v(TAG, "request_url");
@@ -154,7 +154,7 @@ public class BackgroundTask extends CordovaPlugin {
                     SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
                     if (prefs != null) {
 
-                        prefs.edit().putInt("enabled", enabled).commit();
+                        prefs.edit().putInt("enabled", enabled).apply();
 
                         AlarmBroadcastReceiver alarm = new AlarmBroadcastReceiver();
                         alarm.CancelAlarm(cordova.getActivity().getApplicationContext());

@@ -66,7 +66,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         requestUrl = prefs.getString("request_url", "");
         enabled = prefs.getInt("enabled", 0);
         uid = prefs.getString("uid", "8fh04fir7ir");
-        prefs.edit().putString("uid", String.valueOf(enabled + 1));
+//        prefs.edit().putString("uid", String.valueOf(enabled + 1));
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {
             requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";
