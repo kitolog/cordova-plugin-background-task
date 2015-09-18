@@ -29,6 +29,7 @@ public class BackgroundTask extends CordovaPlugin {
 
     public static final String ACTION_ADD_TASK = "add";
     public static final String ACTION_REMOVE_TASK = "remove";
+    public static final String ACTION_ENABLED_TASK = "enabled";
 
     /**
      * Constructor.
@@ -58,10 +59,31 @@ public class BackgroundTask extends CordovaPlugin {
             JSONObject argObject = args.getJSONObject(0);
 
             if (argObject != null) {
-                final String frequency = (String) argObject.getString("frequency");
-                final String url = (String) argObject.getString("url");
-                final String user = (String) argObject.getString("user");
-                final String version = (String) argObject.getString("version");
+                String frequency = "";
+                String url = "";
+                String user = "";
+                String version = "";
+                int enabled = 1;
+
+                if(argObject.has("frequency")){
+                    frequency = (String) argObject.getString("frequency");
+                }
+
+                if(argObject.has("url")){
+                    url = (String) argObject.getString("url");
+                }
+
+                if(argObject.has("user")){
+                    user = (String) argObject.getString("user");
+                }
+
+                if(argObject.has("version")){
+                    version = (String) argObject.getString("version");
+                }
+
+                if(argObject.has("enabled")){
+                    enabled = (Integer) argObject.getInt("enabled");
+                }
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
@@ -107,6 +129,13 @@ public class BackgroundTask extends CordovaPlugin {
                             }
                         });
                         */
+                    }  else if (ACTION_ENABLED_TASK.equals(action)) {
+                    Log.v(TAG, "BackgroundTask received ACTION_ENABLED_TASK");
+
+                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
+                    if (prefs != null) {
+                        prefs.edit().putInt("enabled", enabled).commit();
+                        Log.v(TAG, "BackgroundTask enable SUCCESS");
                     } else {
                         Log.v(TAG, "BackgroundTask SharedPreferences NULL");
                     }

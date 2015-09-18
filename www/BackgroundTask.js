@@ -51,6 +51,39 @@ var backgroundTask = {
             }]
         );
      },
+     setEnabled: function(isEnabled, successCallback, errorCallback, frequency) {
+
+        if(typeof isEnabled == 'undefined'){
+            console.error('isEnabled is required');
+            return;
+        }
+
+        if(typeof errorCallback == 'undefined'){
+            errorCallback = function(e){
+                console.log('backgroundTask');
+                console.log('errorCallback');
+                console.log(e);
+            };
+        }
+
+        if(typeof successCallback == 'undefined'){
+            successCallback = function(result){
+                console.log('backgroundTask');
+                console.log('successCallback');
+                console.log(result);
+            };
+        }
+
+        exec(
+            successCallback, // success callback function
+            errorCallback, // error callback function
+            'BackgroundTask', // mapped to our native Java class called "BackgroundTask"
+            'enabled', // with this action name
+            [{                  // and this array of custom arguments to create our entry
+                "enabled":parseInt(isEnabled),
+            }]
+        );
+     },
      removeUser: function(userId, successCallback, errorCallback) {
 
         if(typeof timeout == 'undefined'){
@@ -79,10 +112,7 @@ var backgroundTask = {
             'BackgroundTask', // mapped to our native Java class called "BackgroundTask"
             'remove', // with this action name
             [{                  // and this array of custom arguments to create our entry
-                "frequency": "0",
-                "url": url,
-                "user": userId,
-                "version": "0",
+                "user": userId
             }]
         );
      }

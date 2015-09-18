@@ -32,6 +32,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     private String versionId;
     private String requestUrl;
     private String uid;
+    private int enabled;
     private SharedPreferences prefs;
     /**
      * debug message
@@ -50,6 +51,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         userId = prefs.getString("user_id", "");
         versionId = prefs.getString("version_id", "");
         requestUrl = prefs.getString("request_url", "");
+        enabled = prefs.getInt("enabled", 1);
         uid = prefs.getString("uid", "8fh04fir7ir");
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {
@@ -58,6 +60,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
         Log.i(TAG, "userId:" + userId);
         Log.i(TAG, "versionId:" + versionId);
+        Log.i(TAG, "enabled:" + String.valueOf(enabled));
     }
 
     protected Boolean doInBackground(Integer... params) {
@@ -92,7 +95,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 //                ty: 'd',
 //                ts: Date.now(),
 //                v: versionConfig.version
-        if ((userId != null) && (versionId != null)) {
+        if ((userId != null) && (versionId != null) && (enabled > 0)) {
 
             RequestParams requestParams = new RequestParams();
             requestParams.add("ui", userId);
