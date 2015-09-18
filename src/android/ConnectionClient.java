@@ -17,6 +17,10 @@ public class ConnectionClient {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
+    public static void getAbsolute(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.get(url, params, responseHandler);
+    }
+
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }

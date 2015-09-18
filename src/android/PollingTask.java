@@ -152,7 +152,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
             };
 
             jsonHttpResponseHandler.setUseSynchronousMode(false);
-            ConnectionClient.get("sync/products", requestParams, jsonHttpResponseHandler);
+            ConnectionClient.getAbsolute(requestUrl, requestParams, jsonHttpResponseHandler);
         }
 
         return result;
