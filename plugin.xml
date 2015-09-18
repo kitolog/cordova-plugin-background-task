@@ -44,5 +44,9 @@
         </config-file>
 
         <source-file src="src/android/BackgroundTask.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/AlarmBroadcastReceiver.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/AppService.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/AutoStart.java" target-dir="src/com/applurk/plugin"/>
+        <source-file src="src/android/ReloadService.java" target-dir="src/com/applurk/plugin"/>
     </platform>
 </plugin>
