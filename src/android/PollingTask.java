@@ -30,6 +30,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     private Context currentContext;
     private String userId;
     private String versionId;
+    private String requestUrl;
     /**
      * debug message
      */
@@ -113,13 +114,13 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                         //                                            co: [{id: 1435, status: "search",addressFrom: "улица Кедышко, 14Б"}]
                                         for (int i = 0; i < currentOrders.length(); i++) {
 
-                                            JSONObject orderData = currentOrders[i];
+                                            JSONObject orderData = productIds.getJSONObject(i);
 
                                             if(orderData != null){
                                                 String addressFrom = orderData.getString("addressFrom");
                                                 String status = orderData.getString("status");
 
-                                                if((addressFrom != null) && addressFrom.length && (status != null) && status.length){
+                                                if((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty()){
                                                     Log.i(TAG, "FOUND NEW ORDER!!!!!");
                                                     Log.i(TAG, addressFrom);
                                                     Log.i(TAG, status);
@@ -162,10 +163,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
             return !ipAddr.equals("");
 
         } catch (Exception e) {
-            statMessage = currentContext.getResources().getString(R.string.connection_task_error).replace(":code", "9");
-            if (devMode) {
-                statMessage += " isInternetAvailable Exception: " + e.getMessage();
-            }
+                Log.e(TAG, "isInternetAvailable Exception " + e.getMessage());
             return false;
         }
 

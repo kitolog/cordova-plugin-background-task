@@ -46,13 +46,11 @@ public class NotificationUtils {
 
     public int createInfoNotification(String title, String message) {
 
-        String appNameString = this.context.getResources().getString(R.string.app_name);
-
         Intent notificationIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
 
 //        Intent notificationIntent = new Intent(context, intentClass); // по клику на уведомлении откроется HomeActivity
         NotificationCompat.Builder nb = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.tray-icon) //иконка уведомления
+//                .setSmallIcon(R.drawable.tray-icon) //иконка уведомления
                 .setAutoCancel(true) //уведомление закроется по клику на него
                 .setTicker(message) //текст, который отобразится вверху статус-бара при создании уведомления
                 .setContentText(message) // Основной текст уведомления
