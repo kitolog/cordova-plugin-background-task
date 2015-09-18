@@ -96,7 +96,7 @@ public class BackgroundTask extends CordovaPlugin {
                     if (prefs != null) {
                         prefs.edit().putString("user_id", user);
                         prefs.edit().putString("request_url", url);
-                        prefs.edit().putString("version_id", version)
+                        prefs.edit().putString("version_id", version);
                         prefs.edit().putInt("enabled", 1).commit();
                         Log.v(TAG, "user_id");
                         Log.v(TAG, user);
