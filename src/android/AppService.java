@@ -17,7 +17,7 @@ public class AppService {
         Log.i(TAG, "runTask");
         try {
 
-            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_WORLD_WRITEABLE);
+            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_MULTI_PROCESS);
             String userId = prefs.getString("user_id", "");
             String versionId = prefs.getString("version_id", "");
             String requestUrl = prefs.getString("request_url", "");

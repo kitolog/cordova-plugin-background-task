@@ -20,7 +20,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_WORLD_WRITEABLE);
+        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_MULTI_PROCESS);
         int refreshStatus = prefs.getInt("refreshStatus", 1);
         if (refreshStatus == 0) {
             Log.d(TAG, "refreshStatus == 0. Cancel alarm");

@@ -90,7 +90,7 @@ public class BackgroundTask extends CordovaPlugin {
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
-                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
+                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_MULTI_PROCESS);
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
 //                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
@@ -130,7 +130,7 @@ public class BackgroundTask extends CordovaPlugin {
                     Log.v(TAG, "BackgroundTask received ACTION_REMOVE_TASK");
 
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
-                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
+                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_MULTI_PROCESS);
                     if (prefs != null) {
                         String userId = prefs.getString("user_id", null);
 
@@ -162,7 +162,7 @@ public class BackgroundTask extends CordovaPlugin {
                     Log.v(TAG, "BackgroundTask received ACTION_ENABLED_TASK");
 
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
-                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
+                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_MULTI_PROCESS);
                     if (prefs != null) {
 
                         SharedPreferences.Editor edit = prefs.edit();

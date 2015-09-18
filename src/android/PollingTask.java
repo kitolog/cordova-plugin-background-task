@@ -58,7 +58,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         Log.i(TAG, "doInBackground");
 
 //        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext.getApplicationContext());
-        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_WORLD_WRITEABLE);
+        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
 
 //        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
@@ -151,7 +151,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                     Log.i(TAG, String.valueOf(OrderId));
                                                     Log.i(TAG, "--------");
 
-                                                    SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_WORLD_WRITEABLE);
+                                                    SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
                                                     int storedOrderId  = prefs.getInt("order_id", 0);
                                                     if(OrderId != storedOrderId){
                                                         prefs.edit().putInt("order_id", OrderId);
