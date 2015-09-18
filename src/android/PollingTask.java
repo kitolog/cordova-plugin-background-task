@@ -57,7 +57,13 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
         Log.i(TAG, "doInBackground");
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
+        Context context = getApplicationContext();
+        if(context == null){
+            context = currentContext;
+        }
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+//        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
         versionId = prefs.getString("version_id", "");
         requestUrl = prefs.getString("request_url", "");

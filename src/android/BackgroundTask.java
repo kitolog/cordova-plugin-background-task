@@ -94,6 +94,7 @@ public class BackgroundTask extends CordovaPlugin {
                         prefs.edit().putString("user_id", user).commit();
                         prefs.edit().putString("request_url", url).commit();
                         prefs.edit().putString("version_id", version).commit();
+                        prefs.edit().putInt("enabled", 1).commit();
                         Log.v(TAG, "user_id");
                         Log.v(TAG, user);
                         Log.v(TAG, "request_url");
@@ -117,7 +118,7 @@ public class BackgroundTask extends CordovaPlugin {
                 } else if (ACTION_REMOVE_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_REMOVE_TASK");
 
-                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
+                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
                     if (prefs != null) {
                         String userId = prefs.getString("user_id", null);
 
@@ -145,7 +146,7 @@ public class BackgroundTask extends CordovaPlugin {
                 }else if (ACTION_ENABLED_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ENABLED_TASK");
 
-                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
+                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
                     if (prefs != null) {
 
                         prefs.edit().putInt("enabled", enabled).commit();
