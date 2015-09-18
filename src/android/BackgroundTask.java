@@ -129,13 +129,20 @@ public class BackgroundTask extends CordovaPlugin {
                             }
                         });
                         */
-                    }  else if (ACTION_ENABLED_TASK.equals(action)) {
+                    } else {
+                        Log.v(TAG, "BackgroundTask SharedPreferences NULL");
+                    }
+
+                    result = true;
+                }else if (ACTION_ENABLED_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ENABLED_TASK");
 
                     final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
+
                         prefs.edit().putInt("enabled", enabled).commit();
                         Log.v(TAG, "BackgroundTask enable SUCCESS");
+
                     } else {
                         Log.v(TAG, "BackgroundTask SharedPreferences NULL");
                     }
