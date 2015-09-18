@@ -23,6 +23,12 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
             <service android:name="com.applurk.plugin.ReloadService"></service>
             <service
@@ -35,10 +41,6 @@
                     <action android:name="android.intent.action.BOOT_COMPLETED" />
                 </intent-filter>
             </receiver>
-
-            <uses-permission android:name="android.permission.INTERNET" />
-            <uses-permission android:name="android.permission.WAKE_LOCK" />
-            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
         </config-file>
 
         <source-file src="src/android/BackgroundTask.java" target-dir="src/com/applurk/plugin"/>
