@@ -5,6 +5,8 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
 
+import com.applurk.servermonitorcore.AlarmBroadcastReceiver;
+
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.os.PowerManager;
@@ -150,6 +152,11 @@ public class BackgroundTask extends CordovaPlugin {
                     if (prefs != null) {
 
                         prefs.edit().putInt("enabled", enabled).commit();
+
+                        AlarmBroadcastReceiver alarm = new AlarmBroadcastReceiver();
+                        alarm.CancelAlarm(cordova.getActivity().getApplicationContext());
+                        alarm.SetAlarm(cordova.getActivity().getApplicationContext(), 1000);
+
                         Log.v(TAG, "BackgroundTask enable SUCCESS");
 
                     } else {
