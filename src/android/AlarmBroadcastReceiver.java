@@ -18,7 +18,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", context.getApplicationContext().MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+//        SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", context.getApplicationContext().MODE_PRIVATE);
         int refreshStatus = prefs.getInt("refreshStatus", 1);
         if (refreshStatus == 0) {
             Log.d(TAG, "refreshStatus == 0. Cancel alarm");
@@ -34,7 +35,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             /**
              * refresh servers data
              */
-            appService.runTask(context);
+            appService.runTask(context.getApplicationContext());
             /**
              * refresh widget data
              */
@@ -49,17 +50,17 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             seconds = 300;
         }
 
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager am = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context.getApplicationContext(), AlarmBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), seconds, pendingIntent); // Millisec * Second * Minute
     }
 
     public void CancelAlarm(Context context) {
         Log.d(TAG, "CancelAlarm");
-        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context.getApplicationContext(), AlarmBroadcastReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
 
