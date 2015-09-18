@@ -18,7 +18,7 @@ public class AppService {
         try {
 
             PollingTask pollingTask = new PollingTask(context);
-            pollingTask.execute();
+            pollingTask.execute(1);
 
         } catch (Exception e) {
             Log.e(TAG, "runTask exception " + e.toString());
