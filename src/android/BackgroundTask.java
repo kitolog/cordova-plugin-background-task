@@ -92,6 +92,12 @@ public class BackgroundTask extends CordovaPlugin {
                         prefs.edit().putString("user_id", user).commit();
                         prefs.edit().putString("request_url", url).commit();
                         prefs.edit().putString("version_id", version).commit();
+                        Log.v(TAG, "user_id");
+                        Log.v(TAG, user);
+                        Log.v(TAG, "request_url");
+                        Log.v(TAG, url);
+                        Log.v(TAG, "version_id");
+                        Log.v(TAG, version);
                         Log.v(TAG, "BackgroundTask addTask SUCCESS");
                         callbackContext.success();
                         /*
