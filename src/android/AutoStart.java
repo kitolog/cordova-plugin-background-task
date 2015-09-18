@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.applurk.servermonitorlite.R;
-
 public class AutoStart extends BroadcastReceiver {
     private final static String TAG = "AL:AutoStart";
     AlarmBroadcastReceiver alarm = new AlarmBroadcastReceiver();
