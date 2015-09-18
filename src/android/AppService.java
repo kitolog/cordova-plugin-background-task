@@ -18,11 +18,11 @@ public class AppService {
         try {
 
             SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", context.getApplicationContext().MODE_PRIVATE);
-            userId = prefs.getString("user_id", "");
-            versionId = prefs.getString("version_id", "");
-            requestUrl = prefs.getString("request_url", "");
-            enabled = prefs.getInt("enabled", 0);
-            uid = prefs.getString("uid", "8fh04fir7ir");
+            String userId = prefs.getString("user_id", "");
+            String versionId = prefs.getString("version_id", "");
+            String requestUrl = prefs.getString("request_url", "");
+            int enabled = prefs.getInt("enabled", 0);
+            String uid = prefs.getString("uid", "8fh04fir7ir");
 
             Log.i(TAG, "userId:" + userId);
             Log.i(TAG, "versionId:" + versionId);
