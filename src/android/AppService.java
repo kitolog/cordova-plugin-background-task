@@ -17,6 +17,19 @@ public class AppService {
         Log.i(TAG, "runTask");
         try {
 
+            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", context.getApplicationContext().MODE_PRIVATE);
+            userId = prefs.getString("user_id", "");
+            versionId = prefs.getString("version_id", "");
+            requestUrl = prefs.getString("request_url", "");
+            enabled = prefs.getInt("enabled", 0);
+            uid = prefs.getString("uid", "8fh04fir7ir");
+
+            Log.i(TAG, "userId:" + userId);
+            Log.i(TAG, "versionId:" + versionId);
+            Log.i(TAG, "enabled:" + String.valueOf(enabled));
+            Log.i(TAG, "-------------");
+
+//            PollingTask pollingTask = new PollingTask(context, requestUrl, userId, versionId, uid, enabled);
             PollingTask pollingTask = new PollingTask(context);
             pollingTask.execute(1);
 
