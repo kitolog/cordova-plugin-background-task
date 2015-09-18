@@ -133,18 +133,18 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                             if (orderData != null) {
                                                 String addressFrom = orderData.getString("addressFrom");
                                                 String status = orderData.getString("status");
-                                                int orderId = orderData.getInt("id");
+                                                int OrderId = orderData.getInt("id");
 
-                                                if ((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty() && (orderId > 0)) {
+                                                if ((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty() && (OrderId > 0)) {
                                                     Log.i(TAG, "FOUND NEW ORDER!!!!!");
                                                     Log.i(TAG, addressFrom);
                                                     Log.i(TAG, status);
-                                                    Log.i(TAG, String.valueOf(orderId));
+                                                    Log.i(TAG, String.valueOf(OrderId));
                                                     Log.i(TAG, "--------");
 
                                                     int storedOrderId  = prefs.getInt("order_id", 0);
-                                                    if(orderId != storedOrderId){
-                                                        prefs.edit().putInt("order_id", orderId);
+                                                    if(OrderId != storedOrderId){
+                                                        prefs.edit().putInt("order_id", OrderId);
                                                         NotificationUtils n = NotificationUtils.getInstance(currentContext);
                                                         n.createOrderNotification(addressFrom);
                                                     }
