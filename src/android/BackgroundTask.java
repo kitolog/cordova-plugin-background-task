@@ -59,14 +59,17 @@ public class BackgroundTask extends CordovaPlugin {
 
             if (argObject != null) {
                 final String frequency = (String) argObject.getString("frequency");
-                final String taskName = (String) argObject.getString("name");
-                final String taskCallback = (String) argObject.getString("callback");
+                final String url = (String) argObject.getString("url");
+                final String user = (String) argObject.getString("user");
+                final String version = (String) argObject.getString("version");
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
                     final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
-                        prefs.edit().putString("tk:" + taskName, taskCallback).commit();
+                        prefs.edit().putString("user_id", user).commit();
+                        prefs.edit().putString("request_url", url).commit();
+                        prefs.edit().putString("version_id", version).commit();
                         Log.v(TAG, "BackgroundTask addTask SUCCESS");
                         callbackContext.success();
                         /*
@@ -86,10 +89,12 @@ public class BackgroundTask extends CordovaPlugin {
 
                     final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
-                        String task = prefs.getString("tk:" + taskName, null);
+                        String userId = prefs.getString("user_id", null);
 
-                        if (task != null) {
-                            prefs.edit().remove("tk:" + taskName);
+                        if (userId != null) {
+                            prefs.edit().remove("user_id");
+                            prefs.edit().remove("request_url");
+                            prefs.edit().remove("version_id");
                             Log.v(TAG, "BackgroundTask removeTask SUCCESS");
                         }else{
                             Log.v(TAG, "BackgroundTask removeTask NO TASK");

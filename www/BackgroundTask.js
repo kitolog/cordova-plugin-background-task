@@ -1,15 +1,20 @@
 var exec = require('cordova/exec');
 
 var backgroundTask = {
-    addTask: function(taskName, taskCallback, successCallback, errorCallback, frequency) {
+    addUser: function(url, userId, version, successCallback, errorCallback, frequency) {
 
-        if(typeof taskName != 'string'){
-            console.error('taskName is required');
+        if(typeof url != 'string'){
+            console.error('url is required');
             return;
         }
 
-        if(typeof taskCallback != 'function'){
-            console.error('taskCallback is required and must be a function');
+        if(typeof userId != 'string'){
+            console.error('userId is required');
+            return;
+        }
+
+        if(typeof version != 'string'){
+            console.error('version is required');
             return;
         }
 
@@ -40,12 +45,13 @@ var backgroundTask = {
             'add', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "frequency": frequency,
-                "name": taskName,
-                "callback": taskCallback.toString(),
+                "url": url,
+                "user": userId,
+                "version": version,
             }]
         );
      },
-     removeTask: function(taskName, successCallback, errorCallback) {
+     removeUser: function(userId, successCallback, errorCallback) {
 
         if(typeof timeout == 'undefined'){
             timeout = 0;
@@ -73,9 +79,10 @@ var backgroundTask = {
             'BackgroundTask', // mapped to our native Java class called "BackgroundTask"
             'remove', // with this action name
             [{                  // and this array of custom arguments to create our entry
-                "name": taskName,
-                "frequency": 0,
-                "callback": "",
+                "frequency": "0",
+                "url": url,
+                "user": userId,
+                "version": "0",
             }]
         );
      }

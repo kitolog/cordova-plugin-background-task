@@ -31,6 +31,8 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     private String userId;
     private String versionId;
     private String requestUrl;
+    private String uid;
+    private SharedPreferences prefs;
     /**
      * debug message
      */
@@ -44,15 +46,15 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
     protected void setupTask() {
         Log.i(TAG, "setupTask");
-        SharedPreferences prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
-        userId = prefs.getString("user_id", "12");
-        versionId = prefs.getString("version_id", "1.1.1");
+        prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
+        userId = prefs.getString("user_id", "");
+        versionId = prefs.getString("version_id", "");
         requestUrl = prefs.getString("request_url", "");
+        uid = prefs.getString("uid", "8fh04fir7ir");
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {
             requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";
         }
-//        http://flashtaxi.applurk.com/api/polling/driver?lo=2015-09-18+09:38:50&timeout=3000&try=1&ts=1442584773609&ty=d&ui=12&uid=default&v=1.1.0
 
         Log.i(TAG, "userId:" + userId);
         Log.i(TAG, "versionId:" + versionId);
@@ -97,6 +99,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
             requestParams.add("v", versionId);
             requestParams.add("ty", "d");
             requestParams.add("ts", "2936423948394");
+            requestParams.add("uid", uid);
 
             JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
                 @Override
@@ -127,15 +130,21 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                             if (orderData != null) {
                                                 String addressFrom = orderData.getString("addressFrom");
                                                 String status = orderData.getString("status");
+                                                int orderId = orderData.getInt("id");
 
-                                                if ((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty()) {
+                                                if ((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty() && (orderId > 0)) {
                                                     Log.i(TAG, "FOUND NEW ORDER!!!!!");
                                                     Log.i(TAG, addressFrom);
                                                     Log.i(TAG, status);
+                                                    Log.i(TAG, String.valueOf(orderId));
                                                     Log.i(TAG, "--------");
 
-                                                    NotificationUtils n = NotificationUtils.getInstance(currentContext);
-                                                    n.createOrderNotification(addressFrom);
+                                                    int orderId  = prefs.getInt("order_id", 0);
+                                                    if(orderId != orderId){
+                                                        prefs.edit().putInt("order_id", orderId);
+                                                        NotificationUtils n = NotificationUtils.getInstance(currentContext);
+                                                        n.createOrderNotification(addressFrom);
+                                                    }
                                                 }
                                             }
                                         }
