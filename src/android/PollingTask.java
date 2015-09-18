@@ -142,8 +142,8 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                     Log.i(TAG, String.valueOf(orderId));
                                                     Log.i(TAG, "--------");
 
-                                                    int orderId  = prefs.getInt("order_id", 0);
-                                                    if(orderId != orderId){
+                                                    int storedOrderId  = prefs.getInt("order_id", 0);
+                                                    if(orderId != storedOrderId){
                                                         prefs.edit().putInt("order_id", orderId);
                                                         NotificationUtils n = NotificationUtils.getInstance(currentContext);
                                                         n.createOrderNotification(addressFrom);
