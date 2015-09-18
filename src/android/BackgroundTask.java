@@ -67,8 +67,7 @@ public class BackgroundTask extends CordovaPlugin {
                     cordova.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Activity activity = cordova.getActivity();
-                            SharedPreferences prefs = activity.getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
+                            SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
                             if (prefs != null) {
                                 prefs.edit().putString("tk:" + taskName, callback).commit();
                                 String task = prefs.putString("tk:" + taskName, false);
@@ -86,8 +85,7 @@ public class BackgroundTask extends CordovaPlugin {
                     cordova.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Activity activity = cordova.getActivity();
-                            SharedPreferences prefs = activity.getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
+                            SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
                             if (prefs != null) {
                                 String task = prefs.getString("tk:" + taskName, null);
 
