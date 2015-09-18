@@ -40,8 +40,8 @@ var backgroundTask = {
             'add', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "frequency": frequency,
-                "taskName": taskName,
-                "taskCallback": taskCallback,
+                "name": taskName,
+                "callback": taskCallback,
             }]
         );
      },
@@ -73,7 +73,9 @@ var backgroundTask = {
             'BackgroundTask', // mapped to our native Java class called "BackgroundTask"
             'remove', // with this action name
             [{                  // and this array of custom arguments to create our entry
-                "taskName": taskName
+                "name": taskName,
+                "frequency": 0,
+                "callback": false,
             }]
         );
      }

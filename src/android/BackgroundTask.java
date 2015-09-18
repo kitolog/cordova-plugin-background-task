@@ -59,14 +59,14 @@ public class BackgroundTask extends CordovaPlugin {
 
             if (argObject != null) {
                 final String frequency = (String) argObject.getString("frequency");
-                final String taskName = (String) argObject.getString("taskName");
-                final String callback = (String) argObject.getString("callback");
+                final String taskName = (String) argObject.getString("name");
+                final String taskCallback = (String) argObject.getString("callback");
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
                     final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
-                        prefs.edit().putString("tk:" + taskName, callback).commit();
+                        prefs.edit().putString("tk:" + taskName, taskCallback).commit();
                         Log.v(TAG, "BackgroundTask addTask SUCCESS");
                         callbackContext.success();
                         /*
