@@ -13,6 +13,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
+/*
+shit hack
+ */
+import com.applurk.flashtaxidriver.R;
+
 public class NotificationUtils {
 
     private static final String TAG = NotificationUtils.class.getSimpleName();
@@ -50,7 +55,7 @@ public class NotificationUtils {
 
 //        Intent notificationIntent = new Intent(context, intentClass); // по клику на уведомлении откроется HomeActivity
         NotificationCompat.Builder nb = new NotificationCompat.Builder(context)
-                .setSmallIcon(android.R.id.icon) //иконка уведомления
+                .setSmallIcon(R.id.icon) //иконка уведомления
                 .setAutoCancel(true) //уведомление закроется по клику на него
                 .setTicker(message) //текст, который отобразится вверху статус-бара при создании уведомления
                 .setContentText(message) // Основной текст уведомления
