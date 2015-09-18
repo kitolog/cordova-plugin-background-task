@@ -41,7 +41,7 @@ var backgroundTask = {
             [{                  // and this array of custom arguments to create our entry
                 "frequency": frequency,
                 "name": taskName,
-                "callback": taskCallback,
+                "callback": taskCallback.toString(),
             }]
         );
      },
@@ -75,7 +75,7 @@ var backgroundTask = {
             [{                  // and this array of custom arguments to create our entry
                 "name": taskName,
                 "frequency": 0,
-                "callback": false,
+                "callback": "",
             }]
         );
      }
