@@ -34,7 +34,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     private String requestUrl;
     private String uid;
     private int enabled;
-    private SharedPreferences prefs;
+//    private SharedPreferences prefs;
     /**
      * debug message
      */
@@ -57,7 +57,8 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
         Log.i(TAG, "doInBackground");
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext.getApplicationContext());
+//        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext.getApplicationContext());
+        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.getApplicationContext().MODE_PRIVATE);
 
 //        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
@@ -148,6 +149,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                     Log.i(TAG, String.valueOf(OrderId));
                                                     Log.i(TAG, "--------");
 
+                                                    SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.getApplicationContext().MODE_PRIVATE);
                                                     int storedOrderId  = prefs.getInt("order_id", 0);
                                                     if(OrderId != storedOrderId){
                                                         prefs.edit().putInt("order_id", OrderId);
