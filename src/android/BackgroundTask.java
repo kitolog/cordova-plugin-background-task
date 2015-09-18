@@ -90,13 +90,13 @@ public class BackgroundTask extends CordovaPlugin {
 
                 if (ACTION_ADD_TASK.equals(action)) {
                     Log.v(TAG, "BackgroundTask received ACTION_ADD_TASK");
-                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().getApplicationContext().MODE_PRIVATE);
+                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
 //                    final SharedPreferences prefs = cordova.getActivity().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().MODE_PRIVATE);
                     if (prefs != null) {
-                        prefs.edit().putString("user_id", user).commit();
-                        prefs.edit().putString("request_url", url).commit();
-                        prefs.edit().putString("version_id", version).commit();
+                        prefs.edit().putString("user_id", user);
+                        prefs.edit().putString("request_url", url);
+                        prefs.edit().putString("version_id", version)
                         prefs.edit().putInt("enabled", 1).commit();
                         Log.v(TAG, "user_id");
                         Log.v(TAG, user);
@@ -122,7 +122,7 @@ public class BackgroundTask extends CordovaPlugin {
                     Log.v(TAG, "BackgroundTask received ACTION_REMOVE_TASK");
 
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
-                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().getApplicationContext().MODE_PRIVATE);
+                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
                     if (prefs != null) {
                         String userId = prefs.getString("user_id", null);
 
@@ -151,7 +151,7 @@ public class BackgroundTask extends CordovaPlugin {
                     Log.v(TAG, "BackgroundTask received ACTION_ENABLED_TASK");
 
 //                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity().getApplicationContext());
-                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", cordova.getActivity().getApplicationContext().MODE_PRIVATE);
+                    SharedPreferences prefs = cordova.getActivity().getApplicationContext().getSharedPreferences("ALBackgroundTask", cordova.getActivity().getApplicationContext().MODE_WORLD_WRITEABLE);
                     if (prefs != null) {
 
                         prefs.edit().putInt("enabled", enabled).commit();

@@ -15,7 +15,7 @@ public class AutoStart extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", context.getApplicationContext().MODE_PRIVATE);
+            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_WORLD_WRITEABLE);
             int refreshFrequency = prefs.getInt("refreshFrequency", 1000);
             alarm.SetAlarm(context.getApplicationContext(), refreshFrequency);
         }

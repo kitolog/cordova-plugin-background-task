@@ -17,7 +17,7 @@ public class AppService {
         Log.i(TAG, "runTask");
         try {
 
-            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", context.getApplicationContext().MODE_PRIVATE);
+            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_WORLD_WRITEABLE);
             String userId = prefs.getString("user_id", "");
             String versionId = prefs.getString("version_id", "");
             String requestUrl = prefs.getString("request_url", "");

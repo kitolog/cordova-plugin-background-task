@@ -20,7 +20,7 @@ public class ReloadService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.d(TAG, "onStartCommand");
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ALBackgroundTask", getApplicationContext().getApplicationContext().MODE_WORLD_WRITEABLE);
 //        SharedPreferences prefs = getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
         int refreshFrequency = prefs.getInt("refreshFrequency", 1000);
         alarm.SetAlarm(ReloadService.this, refreshFrequency);
@@ -32,7 +32,7 @@ public class ReloadService extends Service {
     public void onStart(Context context, Intent intent, int startId)
     {
         Log.d(TAG, "onStart");
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ALBackgroundTask", getApplicationContext().getApplicationContext().MODE_WORLD_WRITEABLE);
 //        SharedPreferences prefs = getSharedPreferences("com.applurk.plugin.BackgroundTask", MODE_PRIVATE);
         int refreshFrequency = prefs.getInt("refreshFrequency", 1000);
         alarm.SetAlarm(context, refreshFrequency);

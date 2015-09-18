@@ -58,7 +58,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         Log.i(TAG, "doInBackground");
 
 //        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext.getApplicationContext());
-        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.getApplicationContext().MODE_PRIVATE);
+        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_WORLD_WRITEABLE);
 
 //        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
@@ -66,6 +66,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         requestUrl = prefs.getString("request_url", "");
         enabled = prefs.getInt("enabled", 0);
         uid = prefs.getString("uid", "8fh04fir7ir");
+        prefs.edit().putString("uid", String.valueOf(enabled + 1));
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {
             requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";
@@ -74,6 +75,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         Log.i(TAG, "userId:" + userId);
         Log.i(TAG, "versionId:" + versionId);
         Log.i(TAG, "enabled:" + String.valueOf(enabled));
+        Log.i(TAG, "uid:" + uid);
 
         if (!isNetworkConnected()) {
             Log.e(TAG, "NOT isNetworkConnected");
@@ -149,7 +151,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                     Log.i(TAG, String.valueOf(OrderId));
                                                     Log.i(TAG, "--------");
 
-                                                    SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.getApplicationContext().MODE_PRIVATE);
+                                                    SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_WORLD_WRITEABLE);
                                                     int storedOrderId  = prefs.getInt("order_id", 0);
                                                     if(OrderId != storedOrderId){
                                                         prefs.edit().putInt("order_id", OrderId);
