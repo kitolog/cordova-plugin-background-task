@@ -5,7 +5,7 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
 
-import com.applurk.servermonitorcore.AlarmBroadcastReceiver;
+import com.applurk.plugin.AlarmBroadcastReceiver;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
