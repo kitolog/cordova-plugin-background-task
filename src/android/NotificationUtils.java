@@ -53,7 +53,6 @@ public class NotificationUtils {
 
         Intent notificationIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
 
-//        Intent notificationIntent = new Intent(context, intentClass); // по клику на уведомлении откроется HomeActivity
         NotificationCompat.Builder nb = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.icon) //иконка уведомления
                 .setAutoCancel(true) //уведомление закроется по клику на него
@@ -63,11 +62,6 @@ public class NotificationUtils {
                 .setWhen(System.currentTimeMillis()) //отображаемое время уведомления
                 .setContentTitle(title) //заголовок уведомления
                 .setDefaults(Notification.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
-
-
-//        09-18 15:20:10.501    1375-1505/com.applurk.flashtaxidriver:remote I/AL:PollingTask﹕ --------
-//                09-18 15:20:10.509      603-603/system_process E/NotificationService﹕ Not posting notification with icon==0: Notification(pri=0 contentView=com.applurk.flashtaxidriver/0x1090064 vibrate=default sound=default defaults=0xffffffff flags=0x11 kind=[null])
-//        09-18 15:20:10.509      603-603/system_process E/NotificationService﹕ WARNING: In a future release this will crash the app: com.applurk.flashtaxidriver
 
         Notification notification = nb.build(); //генерируем уведомление
         manager.notify(lastId, notification); // отображаем его пользователю.

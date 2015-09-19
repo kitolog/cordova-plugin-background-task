@@ -17,19 +17,6 @@ public class AppService {
         Log.i(TAG, "runTask");
         try {
 
-            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_MULTI_PROCESS);
-            String userId = prefs.getString("user_id", "");
-            String versionId = prefs.getString("version_id", "");
-            String requestUrl = prefs.getString("request_url", "");
-            int enabled = prefs.getInt("enabled", 0);
-            String uid = prefs.getString("uid", "8fh04fir7ir");
-
-//            Log.i(TAG, "userId:" + userId);
-//            Log.i(TAG, "versionId:" + versionId);
-//            Log.i(TAG, "enabled:" + String.valueOf(enabled));
-//            Log.i(TAG, "-------------");
-
-//            PollingTask pollingTask = new PollingTask(context, requestUrl, userId, versionId, uid, enabled);
             PollingTask pollingTask = new PollingTask(context);
             pollingTask.execute(1);
 

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.PowerManager;
 import android.util.Log;
+import java.util.Calendar;
 
 import com.applurk.plugin.AppService;
 
@@ -19,7 +20,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_MULTI_PROCESS);
         int refreshStatus = prefs.getInt("refreshStatus", 1);
         if (refreshStatus == 0) {
@@ -54,7 +54,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         AlarmManager am = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context.getApplicationContext(), AlarmBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), seconds, pendingIntent); // Millisec * Second * Minute
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
     }
 
     public void CancelAlarm(Context context) {

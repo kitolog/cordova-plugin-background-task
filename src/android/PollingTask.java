@@ -34,7 +34,6 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     private String requestUrl;
     private String uid;
     private int enabled;
-//    private SharedPreferences prefs;
     /**
      * debug message
      */
@@ -43,13 +42,6 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
     public PollingTask(Context context) {
         Log.i(TAG, "CONSTRUCT");
         currentContext = context;
-        setupTask();
-    }
-
-    protected void setupTask() {
-        Log.i(TAG, "setupTask");
-//        prefs = currentContext.getSharedPreferences("com.applurk.plugin.BackgroundTask", currentContext.MODE_PRIVATE);
-
     }
 
     protected Boolean doInBackground(Integer... params) {
@@ -57,16 +49,13 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
         Log.i(TAG, "doInBackground");
 
-//        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext.getApplicationContext());
         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
 
-//        prefs = PreferenceManager.getDefaultSharedPreferences(currentContext);
         userId = prefs.getString("user_id", "");
         versionId = prefs.getString("version_id", "");
         requestUrl = prefs.getString("request_url", "");
         enabled = prefs.getInt("enabled", 0);
         uid = prefs.getString("uid", "8fh04fir7ir");
-//        prefs.edit().putString("uid", String.valueOf(enabled + 1));
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {
             requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";

@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
  * Created by kit on 20.03.15.
  */
 public class ConnectionClient {
-    private static final String BASE_URL = "http://calorimate.applurk.com/api/v1/";
+    private static final String BASE_URL = "url";
 
     private static SyncHttpClient client = new SyncHttpClient();
 
