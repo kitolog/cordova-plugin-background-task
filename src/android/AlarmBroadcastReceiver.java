@@ -55,15 +55,18 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context.getApplicationContext(), AlarmBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
 
 //        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            calendar.setTimeInMillis(System.currentTimeMillis() + seconds);
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            Log.d(TAG, "KITKAT");
+            Log.d(TAG, String.valueOf(System.currentTimeMillis()));
+            Log.d(TAG, String.valueOf(seconds));
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + seconds, pendingIntent);
         }else{
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
+            Log.d(TAG, "NOT KITKAT");
+            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), seconds, pendingIntent); // Millisec * Second * Minute
         }
     }
 
