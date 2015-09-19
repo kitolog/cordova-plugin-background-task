@@ -58,7 +58,13 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
+//        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            calendar.setTimeInMillis(System.currentTimeMillis() + seconds);
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }else{
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
+        }
     }
 
     public void CancelAlarm(Context context) {
