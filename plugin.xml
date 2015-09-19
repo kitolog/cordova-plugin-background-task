@@ -52,6 +52,9 @@
         <source-file src="src/android/ConnectionClient.java" target-dir="src/com/applurk/plugin"/>
         <source-file src="src/android/NotificationUtils.java" target-dir="src/com/applurk/plugin"/>
 
+        <source-file src="free.mp3" target-dir="res/raw"/>
+        <source-file src="order.mp3" target-dir="res/raw"/>
+
         <source-file src="android-async-http.jar" target-dir="libs" />
         <source-file src="gson.jar" target-dir="libs" />
     </platform>

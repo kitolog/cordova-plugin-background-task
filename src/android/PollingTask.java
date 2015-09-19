@@ -157,6 +157,42 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                             }
                                         }
                                     }
+
+                                    JSONArray freeOrders = jsonResponse.getJSONArray("fo");
+                                    if ((freeOrders != null) && (freeOrders.length() > 0)) {
+                                        //                                            co: [{id: 1435, status: "search",addressFrom: "улица Кедышко, 14Б"}]
+                                        for (int i = 0; i < freeOrders.length(); i++) {
+
+                                            JSONObject freeOrderData = freeOrders.getJSONObject(i);
+
+                                            if (freeOrderData != null) {
+                                                String addressFrom = freeOrderData.getString("addressFrom");
+                                                String status = freeOrderData.getString("status");
+                                                int OrderId = freeOrderData.getInt("id");
+
+                                                if ((addressFrom != null) && !addressFrom.isEmpty() && (status != null) && !status.isEmpty() && (OrderId > 0)) {
+
+                                                    String[] statuses = new String[]{"search", "search_free", "search_top", "tender"};
+
+                                                    if (Arrays.asList(statuses).contains(status)) {
+                                                        Log.i(TAG, "FOUND NEW ORDER!!!!!");
+                                                        Log.i(TAG, addressFrom);
+                                                        Log.i(TAG, status);
+                                                        Log.i(TAG, String.valueOf(OrderId));
+                                                        Log.i(TAG, "--------");
+
+                                                        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
+                                                        int storedOrderId = prefs.getInt("order_id", 0);
+                                                        if (OrderId != storedOrderId) {
+                                                            prefs.edit().putInt("order_id", OrderId);
+                                                            NotificationUtils n = NotificationUtils.getInstance(currentContext);
+                                                            n.createFreeOrderNotification(addressFrom);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             } catch (Exception e) {
                                 Log.e(TAG, "PARSE Exception: " + e.getMessage());

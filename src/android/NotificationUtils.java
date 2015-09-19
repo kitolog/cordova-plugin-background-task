@@ -49,7 +49,7 @@ public class NotificationUtils {
         return instance;
     }
 
-    public int createInfoNotification(String title, String message) {
+    public int createInfoNotification(String title, String message, boolean isFree) {
 
         Intent notificationIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
 
@@ -61,7 +61,9 @@ public class NotificationUtils {
                 .setContentIntent(PendingIntent.getActivity(context, -1, notificationIntent, PendingIntent.FLAG_ONE_SHOT))
                 .setWhen(System.currentTimeMillis()) //отображаемое время уведомления
                 .setContentTitle(title) //заголовок уведомления
-                .setDefaults(Notification.DEFAULT_ALL); // звук, вибро и диодный индикатор выставляются по умолчанию
+                .setDefaults(Notification.DEFAULT_VIBRATE) // звук, вибро и диодный индикатор выставляются по умолчанию
+                .setSound(Uri.parse("android.resource://"
+                        + context.getPackageName() + "/" + (isFree ? R.raw.free : R.raw.order)));
 
         Notification notification = nb.build(); //генерируем уведомление
         manager.notify(lastId, notification); // отображаем его пользователю.
@@ -73,6 +75,11 @@ public class NotificationUtils {
 
     public int createOrderNotification(String addressFrom) {
         String title = "Новый заказ";
-        return createInfoNotification(title, addressFrom);
+        return createInfoNotification(title, addressFrom, false);
+    }
+
+    public int createFreeOrderNotification(String addressFrom) {
+        String title = "Свободный эфир";
+        return createInfoNotification(title, addressFrom, true);
     }
 }
