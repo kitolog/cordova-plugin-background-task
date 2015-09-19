@@ -100,7 +100,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 //                ty: 'd',
 //                ts: Date.now(),
 //                v: versionConfig.version
-        if ((userId != null) && (versionId != null) && (enabled > 0)) {
+        if ((userId != null) && (versionId != null)) {
 
             RequestParams requestParams = new RequestParams();
             requestParams.add("ui", userId);
