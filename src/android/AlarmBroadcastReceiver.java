@@ -20,6 +20,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
+
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
+            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent);
+            Log.d(TAG, "KITKAT REPEAT");
+        }
+
         SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("ALBackgroundTask", context.getApplicationContext().MODE_MULTI_PROCESS);
         int refreshStatus = prefs.getInt("refreshStatus", 1);
         if (refreshStatus == 0) {
@@ -55,15 +63,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context.getApplicationContext(), AlarmBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
 
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-
-//        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), seconds, pendingIntent); // Millisec * Second * Minute
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            Log.d(TAG, "KITKAT");
-            Log.d(TAG, String.valueOf(System.currentTimeMillis()));
-            Log.d(TAG, String.valueOf(seconds));
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
             am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + seconds, pendingIntent);
+            Log.d(TAG, "KITKAT");
+            Log.d(TAG, "set 1000 seconds");
+            Log.d(TAG, String.valueOf(System.currentTimeMillis()));
+            Log.d(TAG, String.valueOf(System.currentTimeMillis() + seconds));
         }else{
             Log.d(TAG, "NOT KITKAT");
             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), seconds, pendingIntent); // Millisec * Second * Minute
