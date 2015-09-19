@@ -45,10 +45,10 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         currentContext = context;
     }
 
-    protected Boolean doInBackground(Integer... params) {
-        boolean result = false;
+    protected void onPreExecute() {
+        super.onPreExecute();
 
-        Log.i(TAG, "doInBackground");
+        Log.i(TAG, "onPreExecute");
 
         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
 
@@ -57,6 +57,12 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
         requestUrl = prefs.getString("request_url", "");
         enabled = prefs.getInt("enabled", 0);
         uid = prefs.getString("uid", "8fh04fir7ir");
+    }
+
+    protected Boolean doInBackground(Integer... params) {
+        boolean result = false;
+
+        Log.i(TAG, "doInBackground");
 
         if ((requestUrl == null) || requestUrl.isEmpty()) {
             requestUrl = "http://flashtaxi.applurk.com/api/polling/driver";
