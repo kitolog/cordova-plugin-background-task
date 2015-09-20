@@ -164,10 +164,12 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                             edit.apply();
 
                                                             Log.i(TAG, "ORDER SAVED!");
-                                                            int soid = prefs.getInt("enabled", 0);
+                                                            int soid = prefs.getInt("order_id", 0);
+                                                            long storedOrderTimeout = prefs.getLong("order_timeout", 0);
                                                             if (soid > 0) {
                                                                 Log.i(TAG, "Saved ORDER:");
                                                                 Log.i(TAG, String.valueOf(soid));
+                                                                Log.i(TAG, String.valueOf(storedOrderTimeout));
                                                             }
 
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
@@ -181,6 +183,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                 }
 
                                 if (jsonResponse.has("fo")) {
+                                    Log.i(TAG, "jsonResponse has fo!");
                                     JSONArray freeOrders = jsonResponse.getJSONArray("fo");
                                     if ((freeOrders != null) && (freeOrders.length() > 0)) {
                                         //                                            co: [{id: 1435, status: "search",addressFrom: "улица Кедышко, 14Б"}]
@@ -198,7 +201,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                     String[] statuses = new String[]{"search", "search_free", "search_top", "tender"};
 
                                                     if (Arrays.asList(statuses).contains(status)) {
-                                                        Log.i(TAG, "FOUND NEW ORDER!!!!!");
+                                                        Log.i(TAG, "FOUND NEW FREE ORDER!!!!!");
                                                         Log.i(TAG, addressFrom);
                                                         Log.i(TAG, status);
                                                         Log.i(TAG, String.valueOf(OrderId));
@@ -216,10 +219,12 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                             edit.apply();
 
                                                             Log.i(TAG, "ORDER SAVED!");
-                                                            int soid = prefs.getInt("enabled", 0);
+                                                            int soid = prefs.getInt("order_id", 0);
+                                                            long storedOrderTimeout = prefs.getLong("order_timeout", 0);
                                                             if (soid > 0) {
                                                                 Log.i(TAG, "Saved ORDER:");
                                                                 Log.i(TAG, String.valueOf(soid));
+                                                                Log.i(TAG, String.valueOf(storedOrderTimeout));
                                                             }
 
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
