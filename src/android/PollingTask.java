@@ -190,7 +190,18 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
                                                         int storedOrderId = prefs.getInt("order_id", 0);
                                                         if (OrderId != storedOrderId) {
-                                                            prefs.edit().putInt("order_id", OrderId);
+
+                                                            SharedPreferences.Editor edit = prefs.edit();
+                                                            edit.putInt("order_id", OrderId);
+                                                            edit.apply();
+
+                                                            Log.i(TAG, "ORDER SAVED!");
+                                                            int soid = prefs.getInt("enabled", 0);
+                                                            if(soid > 0){
+                                                                Log.i(TAG, "Saved ORDER:");
+                                                                Log.i(TAG, String.valueOf(soid));
+                                                            }
+
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
                                                             n.createFreeOrderNotification(addressFrom);
                                                         }
