@@ -154,7 +154,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
                                                         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
                                                         int storedOrderId = prefs.getInt("order_id", 0);
-                                                        long storedOrderTimeout = prefs.getInt("order_timeout", 0);
+                                                        long storedOrderTimeout = prefs.getLong("order_timeout", 0);
                                                         long currentTime = System.currentTimeMillis();
                                                         if ((OrderId != storedOrderId) || (currentTime > storedOrderTimeout)) {
 
@@ -206,7 +206,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
                                                         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
                                                         int storedOrderId = prefs.getInt("order_id", 0);
-                                                        long storedOrderTimeout = prefs.getInt("order_timeout", 0);
+                                                        long storedOrderTimeout = prefs.getLong("order_timeout", 0);
                                                         long currentTime = System.currentTimeMillis();
                                                         if ((OrderId != storedOrderId) || (currentTime > storedOrderTimeout)) {
 
