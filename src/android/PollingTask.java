@@ -173,7 +173,7 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                             }
 
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
-                                                            n.createFreeOrderNotification(addressFrom);
+                                                            n.createOrderNotification(addressFrom);
                                                         }
                                                     }
                                                 }
