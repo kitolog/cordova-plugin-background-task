@@ -165,11 +165,11 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
                                                             Log.i(TAG, "ORDER SAVED!");
                                                             int soid = prefs.getInt("order_id", 0);
-                                                            long storedOrderTimeout = prefs.getLong("order_timeout", 0);
+                                                            long storedNewOrderTimeout = prefs.getLong("order_timeout", 0);
                                                             if (soid > 0) {
                                                                 Log.i(TAG, "Saved ORDER:");
                                                                 Log.i(TAG, String.valueOf(soid));
-                                                                Log.i(TAG, String.valueOf(storedOrderTimeout));
+                                                                Log.i(TAG, String.valueOf(storedNewOrderTimeout));
                                                             }
 
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
@@ -220,11 +220,11 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
                                                             Log.i(TAG, "ORDER SAVED!");
                                                             int soid = prefs.getInt("order_id", 0);
-                                                            long storedOrderTimeout = prefs.getLong("order_timeout", 0);
+                                                            long storedNewOrderTimeout = prefs.getLong("order_timeout", 0);
                                                             if (soid > 0) {
                                                                 Log.i(TAG, "Saved ORDER:");
                                                                 Log.i(TAG, String.valueOf(soid));
-                                                                Log.i(TAG, String.valueOf(storedOrderTimeout));
+                                                                Log.i(TAG, String.valueOf(storedNewOrderTimeout));
                                                             }
 
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
