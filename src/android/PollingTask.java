@@ -154,17 +154,33 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
                                                         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
                                                         int storedOrderId = prefs.getInt("order_id", 0);
-                                                        if (OrderId != storedOrderId) {
-                                                            prefs.edit().putInt("order_id", OrderId);
+                                                        long storedOrderTimeout = prefs.getInt("order_timeout", 0);
+                                                        long currentTime = System.currentTimeMillis();
+                                                        if ((OrderId != storedOrderId) || (currentTime > storedOrderTimeout)) {
+
+                                                            SharedPreferences.Editor edit = prefs.edit();
+                                                            edit.putInt("order_id", OrderId);
+                                                            edit.putLong("order_timeout", System.currentTimeMillis() + 3000);
+                                                            edit.apply();
+
+                                                            Log.i(TAG, "ORDER SAVED!");
+                                                            int soid = prefs.getInt("enabled", 0);
+                                                            if (soid > 0) {
+                                                                Log.i(TAG, "Saved ORDER:");
+                                                                Log.i(TAG, String.valueOf(soid));
+                                                            }
+
                                                             NotificationUtils n = NotificationUtils.getInstance(currentContext);
-                                                            n.createOrderNotification(addressFrom);
+                                                            n.createFreeOrderNotification(addressFrom);
                                                         }
                                                     }
                                                 }
                                             }
                                         }
                                     }
+                                }
 
+                                if (jsonResponse.has("fo")) {
                                     JSONArray freeOrders = jsonResponse.getJSONArray("fo");
                                     if ((freeOrders != null) && (freeOrders.length() > 0)) {
                                         //                                            co: [{id: 1435, status: "search",addressFrom: "улица Кедышко, 14Б"}]
