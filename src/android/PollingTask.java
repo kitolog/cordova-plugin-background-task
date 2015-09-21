@@ -154,12 +154,20 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
 
                                                         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
                                                         int storedOrderId = prefs.getInt("order_id", 0);
+                                                        int countRepeats = prefs.getInt("count_repeats", 0);
                                                         long storedOrderTimeout = prefs.getLong("order_timeout", 0);
                                                         long currentTime = System.currentTimeMillis();
-                                                        if ((OrderId != storedOrderId) || (currentTime > storedOrderTimeout)) {
+                                                        if (((OrderId != storedOrderId) || (countRepeats < 5)) && (currentTime > storedOrderTimeout)) {
+
+                                                            if (OrderId != storedOrderId) {
+                                                                countRepeats = 0;
+                                                            } else {
+                                                                countRepeats++;
+                                                            }
 
                                                             SharedPreferences.Editor edit = prefs.edit();
                                                             edit.putInt("order_id", OrderId);
+                                                            edit.putInt("count_repeats", countRepeats);
                                                             edit.putLong("order_timeout", System.currentTimeMillis() + 3000);
                                                             edit.apply();
 
@@ -186,7 +194,6 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                     Log.i(TAG, "jsonResponse has fo!");
                                     JSONArray freeOrders = jsonResponse.getJSONArray("fo");
                                     if ((freeOrders != null) && (freeOrders.length() > 0)) {
-                                        //                                            co: [{id: 1435, status: "search",addressFrom: "улица Кедышко, 14Б"}]
                                         for (int i = 0; i < freeOrders.length(); i++) {
 
                                             JSONObject freeOrderData = freeOrders.getJSONObject(i);
@@ -208,32 +215,53 @@ public class PollingTask extends AsyncTask<Integer, Void, Boolean> {
                                                         Log.i(TAG, "--------");
 
                                                         SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
-                                                        int storedOrderId = prefs.getInt("order_id", 0);
-                                                        long storedOrderTimeout = prefs.getLong("order_timeout", 0);
+                                                        long storedOrderTimeout = prefs.getLong("free_order_timeout", 0);
                                                         long currentTime = System.currentTimeMillis();
-                                                        if ((OrderId != storedOrderId) || (currentTime > storedOrderTimeout)) {
 
+                                                        String foids = prefs.getString("free_ids", "");
+                                                        if (foids.isEmpty() || !foids.contains(String.valueOf(OrderId))) {
+
+                                                            foids += "-" + String.valueOf(OrderId);
                                                             SharedPreferences.Editor edit = prefs.edit();
-                                                            edit.putInt("order_id", OrderId);
-                                                            edit.putLong("order_timeout", System.currentTimeMillis() + 3000);
-                                                            edit.apply();
+                                                            edit.putString("free_ids", foids);
 
-                                                            Log.i(TAG, "ORDER SAVED!");
-                                                            int soid = prefs.getInt("order_id", 0);
-                                                            long storedNewOrderTimeout = prefs.getLong("order_timeout", 0);
-                                                            if (soid > 0) {
-                                                                Log.i(TAG, "Saved ORDER:");
-                                                                Log.i(TAG, String.valueOf(soid));
-                                                                Log.i(TAG, String.valueOf(storedNewOrderTimeout));
+                                                            Log.i(TAG, "FREE ORDER SAVED!");
+
+                                                            if (currentTime > storedOrderTimeout) {
+                                                                edit.putLong("free_order_timeout", System.currentTimeMillis() + 3000);
+
+                                                                Log.i(TAG, "FREE ORDER TIMEOUT SAVED!");
+
+                                                                NotificationUtils n = NotificationUtils.getInstance(currentContext);
+                                                                n.createFreeOrderNotification(addressFrom);
                                                             }
 
-                                                            NotificationUtils n = NotificationUtils.getInstance(currentContext);
-                                                            n.createFreeOrderNotification(addressFrom);
+                                                            edit.apply();
                                                         }
                                                     }
                                                 }
                                             }
                                         }
+                                    } else {
+                                        Log.i(TAG, "fo lenght = 0 in response");
+                                        SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
+                                        String foids = prefs.getString("free_ids", "");
+                                        if (!foids.isEmpty()) {
+                                            SharedPreferences.Editor edit = prefs.edit();
+                                            edit.remove("free_ids");
+                                            edit.apply();
+                                            Log.i(TAG, "Removed FOIDS!");
+                                        }
+                                    }
+                                } else {
+                                    Log.i(TAG, "NO fo in response");
+                                    SharedPreferences prefs = currentContext.getApplicationContext().getSharedPreferences("ALBackgroundTask", currentContext.getApplicationContext().MODE_MULTI_PROCESS);
+                                    String foids = prefs.getString("free_ids", "");
+                                    if (!foids.isEmpty()) {
+                                        SharedPreferences.Editor edit = prefs.edit();
+                                        edit.remove("free_ids");
+                                        edit.apply();
+                                        Log.i(TAG, "Removed FOIDS!");
                                     }
                                 }
                             } catch (Exception e) {
